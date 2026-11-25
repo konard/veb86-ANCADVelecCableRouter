@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    AutoCAD 2020-2024 load the net48 build (API R23.1 = AutoCAD 2020, binary compatible up to R24.x = AutoCAD 2024);
+    AutoCAD 2025 loads the net8.0-windows build (API R25.0).
+  -->
+  <PropertyGroup>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <PlatformTarget>x64</PlatformTarget>
+    <RootNamespace>VelecCableRouter.AutoCAD</RootNamespace>
+    <AssemblyName>VelecCableRouter.AutoCAD</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <AutoCadNet48ApiVersion Condition="'$(AutoCadNet48ApiVersion)' == ''">23.1.0</AutoCadNet48ApiVersion>
+    <AutoCadNet8ApiVersion Condition="'$(AutoCadNet8ApiVersion)' == ''">25.0.1</AutoCadNet8ApiVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../VelecCableRouter.Core/VelecCableRouter.Core.csproj" />
+  </ItemGroup>
+  <!-- Official Autodesk packages; AutoCAD supplies these assemblies at runtime, so they are never deployed. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="AutoCAD.NET" Version="$(AutoCadNet48ApiVersion)" PrivateAssets="all" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
+    <PackageReference Include="AutoCAD.NET" Version="$(AutoCadNet8ApiVersion)" PrivateAssets="all" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

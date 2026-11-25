@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+artifacts/
+ci-logs/
+.vs/
+*.user
+experiments/logs/
