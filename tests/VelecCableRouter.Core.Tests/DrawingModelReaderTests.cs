@@ -150,5 +150,17 @@ namespace VelecCableRouter.Core.Tests
             Assert.Equal(new[] { "ППК-1", "ИП-1", "Ст" }, participants.Devices.Select(d => d.Name));
             Assert.Equal("Ст-1", participants.Devices[2].RiserName);
         }
+
+        [Theory]
+        [InlineData("CONNECTOR_POINT", true)]
+        [InlineData("connector_square", true)]
+        [InlineData(" CONNECTOR_POINT ", true)]
+        [InlineData("CONNECTOR", false)]
+        [InlineData("CONNECTOR_POINT_2", false)]
+        [InlineData(null, false)]
+        public void ConnectorNames_AreMatchedCaseInsensitively(string? name, bool expected)
+        {
+            Assert.Equal(expected, ConnectorNames.IsConnector(name));
+        }
     }
 }

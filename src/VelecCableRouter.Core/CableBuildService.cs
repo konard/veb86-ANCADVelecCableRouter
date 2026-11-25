@@ -14,6 +14,9 @@ namespace VelecCableRouter.Core
 
         /// <summary>Tolerance of the graph builder (ZCAD Epsilon), drawing units.</summary>
         public double Epsilon { get; set; } = DefaultEpsilon;
+
+        /// <summary>The tolerance must be a finite positive number.</summary>
+        public static bool IsValidEpsilon(double epsilon) => epsilon > 0 && !double.IsInfinity(epsilon);
     }
 
     /// <summary>Result for one superline: graph, cables and the report lines.</summary>
@@ -75,7 +78,7 @@ namespace VelecCableRouter.Core
         public static CableBuildResult Build(IEnumerable<RawEntity> entities, CableBuildOptions? options = null)
         {
             options ??= new CableBuildOptions();
-            if (!(options.Epsilon > 0) || double.IsInfinity(options.Epsilon))
+            if (!CableBuildOptions.IsValidEpsilon(options.Epsilon))
             {
                 throw new ArgumentOutOfRangeException(nameof(options), options.Epsilon, "Epsilon must be a positive number.");
             }
