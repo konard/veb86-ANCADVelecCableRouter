@@ -1,0 +1,57 @@
+name: Build and test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  core-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Test BobrovXDATA v2, graph builder, router and report (VelecCableRouter.Core)
+        run: dotnet test tests/VelecCableRouter.Core.Tests -c Release --logger "trx;LogFileName=core.trx" --results-directory artifacts/tests --blame-hang-timeout 2m
+      - name: Run the sample drawing through the whole pipeline
+        timeout-minutes: 3
+        run: dotnet run --project examples/VelecCableRouter.Sample -c Release -- artifacts/sample
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: core-test-results
+          path: artifacts
+
+  windows-build:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Build the solution (AutoCAD 2020-2024 net48 and AutoCAD 2025 net8.0-windows)
+        run: dotnet build VelecCableRouter.sln -c Release
+      - name: Verify the AutoCAD 2024 API build
+        run: dotnet build src/VelecCableRouter.AutoCAD -c Release -f net48 -p:AutoCadNet48ApiVersion=24.3.0 -p:OutputPath=../../artifacts/autocad2024
+      - name: Verify that AutoCAD SDK assemblies are not deployed
+        shell: pwsh
+        run: |
+          $sdk = 'AcCoreMgd', 'AcCui', 'AcDbMgd', 'acdbmgdbrep', 'AcDx', 'AcMgd', 'AcMr', 'AcSeamless', 'AcTcMgd', 'AcWindows', 'AdUIMgd', 'AdUiPalettes', 'AdWindows'
+          $sdkFiles = Get-ChildItem src/VelecCableRouter.AutoCAD/bin/Release, artifacts/autocad2024 -Recurse -Filter *.dll | Where-Object { $sdk -contains $_.BaseName -or $_.BaseName -like 'Autodesk.*' }
+          if ($sdkFiles) { throw "AutoCAD SDK assemblies must not be deployed: $($sdkFiles.Name -join ', ')" }
+          foreach ($folder in 'net48', 'net8.0-windows') {
+            foreach ($file in 'VelecCableRouter.AutoCAD.dll', 'VelecCableRouter.Core.dll') {
+              if (-not (Test-Path (Join-Path "src/VelecCableRouter.AutoCAD/bin/Release/$folder" $file))) { throw "$file is missing in $folder" }
+            }
+          }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plugin-binaries
+          path: src/VelecCableRouter.AutoCAD/bin/Release

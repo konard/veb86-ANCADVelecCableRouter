@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelecCableRouter.Core.Tests", "tests\VelecCableRouter.Core.Tests\VelecCableRouter.Core.Tests.csproj", "{CCAFE74B-8BF0-43C2-8FFD-D607BD4960E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelecCableRouter.Sample", "examples\VelecCableRouter.Sample\VelecCableRouter.Sample.csproj", "{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,18 @@ Global
 		{CCAFE74B-8BF0-43C2-8FFD-D607BD4960E8}.Release|x64.Build.0 = Release|Any CPU
 		{CCAFE74B-8BF0-43C2-8FFD-D607BD4960E8}.Release|x86.ActiveCfg = Release|Any CPU
 		{CCAFE74B-8BF0-43C2-8FFD-D607BD4960E8}.Release|x86.Build.0 = Release|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Debug|x64.Build.0 = Debug|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Debug|x86.Build.0 = Debug|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Release|x64.ActiveCfg = Release|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Release|x64.Build.0 = Release|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Release|x86.ActiveCfg = Release|Any CPU
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +83,6 @@ Global
 		{65F52671-5036-44FC-9F33-3D3ECEABB3EA} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{745733D4-0768-408A-991B-A6FBD6A1663F} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{CCAFE74B-8BF0-43C2-8FFD-D607BD4960E8} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{0FA06496-B8BF-4CD5-AAEF-F5C2CF7527C3} = {B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}
 	EndGlobalSection
 EndGlobal
